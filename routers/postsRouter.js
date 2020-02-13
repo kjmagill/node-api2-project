@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
     const { title, contents } = req.body;
     if (!title || !contents) {
-        return res.status(400).json({ errorMessage: 'Please provide title and contents for the post.' });
+        res.status(400).json({ errorMessage: 'Please provide title and contents for the post.' });
     }
     db.insert({ title, contents })
         .then(({ id }) => {
@@ -58,7 +58,7 @@ router.put('/:id', (req, res) => {
     const title = req.body.title;
 
     if (!title && !contents) {
-        return res.status(400).json({ errorMessage: 'Please provide title and contents for the post.' });
+        res.status(400).json({ errorMessage: 'Please provide title and contents for the post.' });
     }
 
     db.update(id, { title, contents })
@@ -125,7 +125,7 @@ router.post('/:post_id/comments', (req, res) => {
     const { text } = req.body;
 
     if (text === '' || typeof text !== 'string') {
-        return res
+        res
             .status(400)
             .json({ errorMessage: 'Please provide text for the comment.' });
     }
